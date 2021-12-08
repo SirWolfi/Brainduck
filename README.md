@@ -1,6 +1,6 @@
 # Wellcome to Brainduck
 
-# Inroduction
+# Introduction
 Brainduck is a Brainfuck-like programming language with some extra steps to make it even more difficult to do stuff!
 
 # How it works

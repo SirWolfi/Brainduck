@@ -205,29 +205,11 @@ void parse(std::string source) {
             POS.set(in);
         }
         else if(source[i] == SET) {
-            bool done = false;
-            if(index_y - 1 != NO_NUMBER) {
-                if(vec2D[index_x][index_y-1].retint()) {
-                    POS = std::stoi(vec2D[index_x][index_y-1].ret());
-                    done = true;
-                }
-                else if(!vec2D[index_x][index_y-1].empty()) {
-                    POS = vec2D[index_x][index_y-1].ret();
-                    done = true;
-                }
-                else {
-                    done = false;
-                }
+            if(index_y -1 != NO_NUMBER) {
+                POS.set(vec2D[index_x][index_y-1].ret());
             }
-            if(!done && index_x - 1 != NO_NUMBER) {
-                if(vec2D[index_x-1][index_y].retint()) {
-                    POS = std::stoi(vec2D[index_x-1][index_y].ret());
-                    done = true;
-                }
-                else if(!vec2D[index_x-1][index_y].empty()) {
-                    POS = vec2D[index_x-1][index_y].ret();
-                    done = true;
-                }
+            else if(index_x -1 != NO_NUMBER) {
+                POS.set(vec2D[index_x-1][index_y].ret());
             }
         }
         else if(source[i] == ADD) {

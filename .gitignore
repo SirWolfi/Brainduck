@@ -3,5 +3,5 @@ Deduck.log
 *.x84_64
 brainduck
 main
-playground.bd
+*.bd
 vis.txt

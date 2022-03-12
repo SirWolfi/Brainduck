@@ -147,7 +147,7 @@ void parse(std::string source) {
     size_t index_y = 0;
 
     std::stack<size_t> loops;
-
+    bool jmp_dir = false; // false = -> ; true = <-
 #define UP '^' 
 #define DOWN 'v'
 #define RIGHT '>'
@@ -245,7 +245,7 @@ void parse(std::string source) {
             if(POS.retint() && std::stoi(POS.ret()) != 0) {
                 loops.push(i);
             }
-            else if(!POS.retint()) {
+            else if(!POS.retint() && POS.ret() != "") {
                 loops.push(i);
             }
             else {
@@ -274,7 +274,7 @@ void parse(std::string source) {
             }
         }
         else if(source[i] == COND_START) {
-            if(!((POS.retint() && POS.ret() == "0" ) || !POS.retint())) {
+            if(!((POS.retint() && POS.ret() == "0" ) || (!POS.retint() && POS.ret() == ""))) {
                 size_t save = i;
                 while(source[i] != COND_END) {
                     if(i+1 >= source.size()) {
@@ -311,19 +311,40 @@ void parse(std::string source) {
                 system(ch);
             }
         }
+        else if(source[i] == '_') {
+            jmp_dir = !jmp_dir;
+        }
         else if(isInt(std::string(1,source[i])) and std::stoi(std::string(1,source[i])) > 0) {
             int jmp = std::stoi(std::string(1,source[i]));
-            if(i + jmp >= source.size()) {
+            if(i + jmp >= source.size() && !jmp_dir) {
                 std::cout << "Quak! Trying to jump to a code that doesn't exist at character " << i << "\n";
                 std::exit(1);
             }
+            if(i - jmp >= source.size() && jmp_dir) {
+                std::cout << "Quak! Trying to jump to a code that doesn't exist at character " << i << "\n";
+                std::exit(1);
+            }
+            i += jmp * (jmp_dir ? 1 : -1);
         }
         else if(source[i] == ' ' or source[i] == '\n') {
             ;
         }
+        else if(source[i] == ':') {
+            bool swb = false;
+            if(!POS.retint()) {
+                POS.swap();
+                swb = true;
+            }
+            POS = std::string(1,char(std::stoi(POS.ret())));
+            if(swb) {
+                POS.swap();
+            }
+        }
         else {
-            std::cout << "Quak! unknown instruction \"" << source[i] << "\"\n";
-            std::exit(1);
+            // I allow comments this way i guess
+
+            //std::cout << "Quak! unknown instruction \"" << source[i] << "\"\n";
+            //std::exit(1);
         }
     }
 }

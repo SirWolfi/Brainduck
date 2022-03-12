@@ -6,13 +6,11 @@ Brainduck is a Brainfuck-like programming language with some extra steps to make
 # How it works
 In Brainduck there are cells. Each cell has it's own value which is eather a int or a string.
 You can move to other cell using this commands:
-`<` move to the left <br\>
-`>` move to the right <br\>
-`^` move up <br\>
-`v` move down <br\>
+ - `<` move to the left <br\>
+ - `>` move to the right <br\>
+ - `^` move up <br\>
+ - `v` move down <br\>
 If you want to move to a cell with the index < 0, nothing will happen.
-
-You can add 1 to the cells using the `+` command and subtract 1 using the `-` command. (cells can be < 0)
 
 # Special commands/features
 
@@ -79,8 +77,8 @@ brainduck -f file.bd
 Normaly, all commands and cell states will be loged in the Deduck.log file.
 You can disable this using the `--no-logs` flag.
 
-# creator
-SirWolf and a lot of coffee
+# Creator
+SirWolf and like 30 minutes of boredom.
 
 # some examples
 You can find examples in the examples/ directory.
